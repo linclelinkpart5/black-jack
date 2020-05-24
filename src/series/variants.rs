@@ -16,6 +16,12 @@ pub enum GenericSeriesContainer {
     STRING(Series<String>),
     /// Hold `Decimal` type series
     DECIMAL(Series<Decimal>),
+    /// Hold `Date` type series
+    DATE(Series<Date>),
+    /// Hold `Time` type series
+    TIME(Series<Time>),
+    /// Hold `DateTime` type series
+    DATETIME(Series<DateTime>),
 }
 
 impl GenericSeriesContainer {
@@ -29,6 +35,12 @@ impl GenericSeriesContainer {
             GenericSeriesContainer::F32(series) => series.into_type::<String>().unwrap().into_vec(),
             GenericSeriesContainer::STRING(series) => series.into_vec(),
             GenericSeriesContainer::DECIMAL(series) =>
+                series.into_type::<String>().unwrap().into_vec(),
+            GenericSeriesContainer::DATE(series) =>
+                series.into_type::<String>().unwrap().into_vec(),
+            GenericSeriesContainer::TIME(series) =>
+                series.into_type::<String>().unwrap().into_vec(),
+            GenericSeriesContainer::DATETIME(series) =>
                 series.into_type::<String>().unwrap().into_vec(),
         }
     }

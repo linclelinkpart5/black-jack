@@ -23,6 +23,15 @@ pub enum DType {
 
     /// `Decimal`
     DECIMAL,
+
+    /// `Date`
+    DATE,
+
+    /// `Time`
+    TIME,
+
+    /// `DateTime`
+    DATETIME,
 }
 
 /// Container for use with `Row` struct
@@ -45,6 +54,15 @@ pub enum Datum<'a> {
 
     /// Refrence to a Decimal within the dataframe
     DEC(&'a Decimal),
+
+    /// Refrence to a Date within the dataframe
+    DAT(&'a Date),
+
+    /// Refrence to a Time within the dataframe
+    TIM(&'a Time),
+
+    /// Refrence to a DateTime within the dataframe
+    DTM(&'a DateTime),
 }
 
 /// An enum representation of a `Series`, typically only seen
@@ -68,4 +86,13 @@ pub enum Column {
 
     /// A column in the `DataFrame` of type `Series<Decimal>`
     DEC(Series<Decimal>),
+
+    /// A column in the `DataFrame` of type `Series<Date>`
+    DAT(Series<Date>),
+
+    /// A column in the `DataFrame` of type `Series<Time>`
+    TIM(Series<Time>),
+
+    /// A column in the `DataFrame` of type `Series<DateTime>`
+    DTM(Series<DateTime>),
 }

@@ -137,6 +137,21 @@ impl<I: PartialOrd + PartialEq + BlackJackData> DataFrame<I> {
                         &mut self.get_column_mut(meta.name.as_str()).unwrap();
                     s.drop_positions(positions.clone())
                 }
+                DType::DATE => {
+                    let s: &mut Series<Date> =
+                        &mut self.get_column_mut(meta.name.as_str()).unwrap();
+                    s.drop_positions(positions.clone())
+                }
+                DType::TIME => {
+                    let s: &mut Series<Time> =
+                        &mut self.get_column_mut(meta.name.as_str()).unwrap();
+                    s.drop_positions(positions.clone())
+                }
+                DType::DATETIME => {
+                    let s: &mut Series<DateTime> =
+                        &mut self.get_column_mut(meta.name.as_str()).unwrap();
+                    s.drop_positions(positions.clone())
+                }
             };
         }
         self.index.drop_positions(positions);
@@ -185,6 +200,18 @@ impl<I: PartialOrd + PartialEq + BlackJackData> DataFrame<I> {
                     DType::DECIMAL => {
                         let series: &Series<Decimal> = self.data.get(&meta.name).unwrap();
                         row.add(Element::new(meta.name.clone(), Datum::DEC(&series[idx])))
+                    }
+                    DType::DATE => {
+                        let series: &Series<Date> = self.data.get(&meta.name).unwrap();
+                        row.add(Element::new(meta.name.clone(), Datum::DAT(&series[idx])))
+                    }
+                    DType::TIME => {
+                        let series: &Series<Time> = self.data.get(&meta.name).unwrap();
+                        row.add(Element::new(meta.name.clone(), Datum::TIM(&series[idx])))
+                    }
+                    DType::DATETIME => {
+                        let series: &Series<DateTime> = self.data.get(&meta.name).unwrap();
+                        row.add(Element::new(meta.name.clone(), Datum::DTM(&series[idx])))
                     }
                 }
             }
@@ -337,6 +364,15 @@ impl<I: PartialOrd + PartialEq + BlackJackData> DataFrame<I> {
                 ),
                 DType::DECIMAL => GenericSeriesContainer::DECIMAL(
                     self.data.get::<Series<Decimal>, _>(name).unwrap().clone(),
+                ),
+                DType::DATE => GenericSeriesContainer::DATE(
+                    self.data.get::<Series<Date>, _>(name).unwrap().clone(),
+                ),
+                DType::TIME => GenericSeriesContainer::TIME(
+                    self.data.get::<Series<Time>, _>(name).unwrap().clone(),
+                ),
+                DType::DATETIME => GenericSeriesContainer::DATETIME(
+                    self.data.get::<Series<DateTime>, _>(name).unwrap().clone(),
                 ),
             };
             Some(container)

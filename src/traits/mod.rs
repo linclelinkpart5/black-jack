@@ -41,3 +41,18 @@ impl BlackJackData for Decimal {
         DType::DECIMAL
     }
 }
+impl BlackJackData for Date {
+    fn dtype(&self) -> DType {
+        DType::DATE
+    }
+}
+impl BlackJackData for Time {
+    fn dtype(&self) -> DType {
+        DType::TIME
+    }
+}
+impl BlackJackData for DateTime {
+    fn dtype(&self) -> DType {
+        DType::DATETIME
+    }
+}
