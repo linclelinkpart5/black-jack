@@ -125,15 +125,6 @@ fn criterion_bechmark(c: &mut Criterion) {
         )
     });
 
-    c.bench_function("series agg ops (QUANTILE)", |b| {
-        b.iter_with_setup(
-            || Series::arange(0, 10000),
-            |series| {
-                let _qtl = series.quantile(0.5).unwrap();
-            },
-        )
-    });
-
     c.bench_function("series groupby", |b| {
         b.iter_with_setup(
             || {
@@ -159,18 +150,6 @@ fn criterion_bechmark(c: &mut Criterion) {
         )
     });
 
-    c.bench_function("series indexing (LOC)", |b| {
-        b.iter_with_setup(
-            || {
-                let series = Series::arange(0, 10000);
-                series
-            },
-            |series| {
-                let _res = series.loc(&vec![250, 500, 1000, 2000, 4000, 5000]);
-            },
-        )
-    });
-
     c.bench_function("series indexing (ILOC)", |b| {
         b.iter_with_setup(
             || {
@@ -183,14 +162,14 @@ fn criterion_bechmark(c: &mut Criterion) {
         )
     });
 
-    c.bench_function("series drops (DROP_INDEXES)", |b| {
+    c.bench_function("series drops (DROP_POSITIONS)", |b| {
         b.iter_with_setup(
             || {
                 let series = Series::arange(0, 10000);
                 series
             },
             |mut series| {
-                series.drop_indexes(vec![250, 500, 1000, 2000, 4000, 5000]);
+                series.drop_positions(vec![250, 500, 1000, 2000, 4000, 5000]);
             },
         )
     });

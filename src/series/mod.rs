@@ -597,37 +597,6 @@ where
             .ok_or_else(|| BlackJackError::from("Failed to calculate mean!"))
     }
 
-    /// Calculate the quantile of the series
-    ///
-    /// ## Example:
-    /// ```
-    /// use blackjack::prelude::*;
-    ///
-    /// let series = Series::arange(0, 100).astype::<f32>().unwrap();
-    /// let qtl = series.quantile(0.5).unwrap(); // `49.5_f32`
-    ///
-    /// assert!(qtl < 49.51);
-    /// assert!(qtl > 49.49);
-    /// ```
-    pub fn quantile(&self, quantile: f64) -> Result<f64, BlackJackError>
-    where
-        T: ToPrimitive + BlackJackData,
-    {
-        use rgsl::statistics::quantile_from_sorted_data;
-        use std::cmp::Ordering;
-
-        let mut vec = self
-            .clone()
-            .into_vec()
-            .into_iter()
-            .map(|v| v.to_f64().unwrap())
-            .collect::<Vec<f64>>();
-
-        vec.sort_by(|a, b| a.partial_cmp(b).unwrap_or(Ordering::Equal));
-        let qtl = quantile_from_sorted_data(&vec[..], 1, vec.len(), quantile);
-        Ok(qtl)
-    }
-
     /// Calculate the median of a series
     pub fn median(&self) -> Result<f64, BlackJackError>
     where

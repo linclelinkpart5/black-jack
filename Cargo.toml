@@ -1,5 +1,5 @@
 [package]
-name = "black-jack"
+name = "blackjack"
 version = "0.1.0"
 edition = "2018"
 authors = ["Miles Granger <miles59923@gmail.com>"]
@@ -20,7 +20,6 @@ name = "blackjack"
 num = "^0.2"
 csv = "^1.0"
 streaming-stats = "0.2"
-GSL = "^1.0"
 rayon = "^1.0"
 itertools = "^0.9"
 flate2 = { version = "^1.0", features = ["rust_backend"], default-features = false }
@@ -33,9 +32,6 @@ serde = {version = "^1.0", features = ["derive"] }
 failure = "^0.1"
 snap = "^1.0"
 baggie = "^0.2"
-
-[features]
-default = ["GSL/v2"]
 
 [dev-dependencies]
 float-cmp = "0.8"

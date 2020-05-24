@@ -301,14 +301,6 @@ fn test_series_aggregation_ops() {
     assert!(median > 4.49);
     let series = Series::arange(0, 3);
     assert_eq!(series.median().unwrap(), 1.0);
-
-    // Test quantile
-    let series = Series::arange(0, 101);
-    assert_eq!(series.quantile(0.5).unwrap(), 50.0);
-    let series = Series::arange(0, 100);
-    let qtl = series.quantile(0.5).unwrap();
-    assert!(qtl < 49.51);
-    assert!(qtl > 49.49);
 }
 
 #[test]
