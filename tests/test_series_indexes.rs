@@ -2,7 +2,7 @@ use blackjack::prelude::*;
 
 #[test]
 fn test_iloc_selects_index() {
-    let mut series = Series::from_vec(vec![1, 2, 3, 4, 5]);
+    let series = Series::from_vec(vec![1, 2, 3, 4, 5]);
 
     // Select values based on matching index values
     let vals = series.iloc(&vec![0, 1, 0, 4]);

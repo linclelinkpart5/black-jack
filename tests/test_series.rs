@@ -3,7 +3,6 @@ extern crate float_cmp;
 extern crate num;
 
 use blackjack::prelude::*;
-use float_cmp::ApproxEq;
 
 /* Series <op> Series tests */
 #[test]

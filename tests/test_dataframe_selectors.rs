@@ -1,5 +1,4 @@
 use blackjack::prelude::*;
-use float_cmp::ApproxEq;
 
 #[test]
 // Select rows based on positions

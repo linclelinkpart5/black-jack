@@ -110,7 +110,7 @@ impl Reader {
         use std::io::prelude::*;
 
         let p = Path::new(&self.path);
-        let file_reader: Box<Read> = if self.path.to_string().to_lowercase().ends_with(".gz") {
+        let file_reader: Box<dyn Read> = if self.path.to_string().to_lowercase().ends_with(".gz") {
             // Return a Gzip reader
             Box::new(GzDecoder::new(File::open(p)?))
         } else {
@@ -238,7 +238,7 @@ impl Writer {
 
         let p = Path::new(&self.path);
 
-        let file_writer: Box<Write> = if self.path.to_string().to_lowercase().ends_with(".gz") {
+        let file_writer: Box<dyn Write> = if self.path.to_string().to_lowercase().ends_with(".gz") {
             // Return a Gzip reader
             Box::new(GzEncoder::new(File::create(p)?, Compression::default()))
         } else {
