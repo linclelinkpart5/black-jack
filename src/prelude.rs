@@ -6,3 +6,5 @@ pub use crate::error::*;
 pub use crate::row::*;
 pub use crate::series::*;
 pub use crate::traits::*;
+
+pub(crate) use rust_decimal::Decimal;

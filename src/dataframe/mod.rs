@@ -4,6 +4,7 @@
 
 use baggie::Baggie;
 use num::*;
+use rust_decimal::Decimal;
 use serde::Deserialize;
 
 use crate::prelude::*;
@@ -131,6 +132,11 @@ impl<I: PartialOrd + PartialEq + BlackJackData> DataFrame<I> {
                         &mut self.get_column_mut(meta.name.as_str()).unwrap();
                     s.drop_positions(positions.clone())
                 }
+                DType::DECIMAL => {
+                    let s: &mut Series<Decimal> =
+                        &mut self.get_column_mut(meta.name.as_str()).unwrap();
+                    s.drop_positions(positions.clone())
+                }
             };
         }
         self.index.drop_positions(positions);
@@ -175,6 +181,10 @@ impl<I: PartialOrd + PartialEq + BlackJackData> DataFrame<I> {
                     DType::STRING => {
                         let series: &Series<String> = self.data.get(&meta.name).unwrap();
                         row.add(Element::new(meta.name.clone(), Datum::STR(&series[idx])))
+                    }
+                    DType::DECIMAL => {
+                        let series: &Series<Decimal> = self.data.get(&meta.name).unwrap();
+                        row.add(Element::new(meta.name.clone(), Datum::DEC(&series[idx])))
                     }
                 }
             }
@@ -324,6 +334,9 @@ impl<I: PartialOrd + PartialEq + BlackJackData> DataFrame<I> {
                 }
                 DType::STRING => GenericSeriesContainer::STRING(
                     self.data.get::<Series<String>, _>(name).unwrap().clone(),
+                ),
+                DType::DECIMAL => GenericSeriesContainer::DECIMAL(
+                    self.data.get::<Series<Decimal>, _>(name).unwrap().clone(),
                 ),
             };
             Some(container)

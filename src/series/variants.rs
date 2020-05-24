@@ -14,6 +14,8 @@ pub enum GenericSeriesContainer {
     F32(Series<f32>),
     /// Hold `String` type series
     STRING(Series<String>),
+    /// Hold `Decimal` type series
+    DECIMAL(Series<Decimal>),
 }
 
 impl GenericSeriesContainer {
@@ -26,6 +28,8 @@ impl GenericSeriesContainer {
             GenericSeriesContainer::I32(series) => series.into_type::<String>().unwrap().into_vec(),
             GenericSeriesContainer::F32(series) => series.into_type::<String>().unwrap().into_vec(),
             GenericSeriesContainer::STRING(series) => series.into_vec(),
+            GenericSeriesContainer::DECIMAL(series) =>
+                series.into_type::<String>().unwrap().into_vec(),
         }
     }
 }

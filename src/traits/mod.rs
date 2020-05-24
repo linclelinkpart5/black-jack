@@ -36,3 +36,8 @@ impl BlackJackData for String {
         DType::STRING
     }
 }
+impl BlackJackData for Decimal {
+    fn dtype(&self) -> DType {
+        DType::DECIMAL
+    }
+}

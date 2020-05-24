@@ -1,4 +1,5 @@
 //! Enums to be used throughout the crate.
+use rust_decimal::Decimal;
 use serde::{Serialize, Deserialize};
 use crate::prelude::*;
 
@@ -19,6 +20,9 @@ pub enum DType {
 
     /// `String`
     STRING,
+
+    /// `Decimal`
+    DECIMAL,
 }
 
 /// Container for use with `Row` struct
@@ -38,6 +42,9 @@ pub enum Datum<'a> {
 
     /// Refrence to a String within the dataframe
     STR(&'a String),
+
+    /// Refrence to a Decimal within the dataframe
+    DEC(&'a Decimal),
 }
 
 /// An enum representation of a `Series`, typically only seen
@@ -58,4 +65,7 @@ pub enum Column {
 
     /// A column in the `DataFrame` of type `Series<String>`
     STR(Series<String>),
+
+    /// A column in the `DataFrame` of type `Series<Decimal>`
+    DEC(Series<Decimal>),
 }
